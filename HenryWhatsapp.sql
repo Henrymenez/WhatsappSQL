@@ -64,6 +64,11 @@ INSERT INTO [dbo].[MessagesTb]([sender],[receiver],[chat],[createdAT],[msgStatus
 
 
 /* VIEW QUERY*/
-
-SELECT dbo.MessagesTb.sender, dbo.MessagesTb.receiver, dbo.MessagesTb.createdAT, dbo.MessagesTb.chat, dbo.Profiles.displayName,
-dbo.MessagesTb.msgStatus FROM    dbo.MessagesTb INNER JOIN dbo.Profiles ON dbo.MessagesTb.Id = dbo.Profiles.Id
+SELECT sender.displayName AS senderName,
+	receiver.displayName AS receiverName,
+	MessagesTb.chat,
+	MessagesTb.createdAT 
+	FROM 
+	MessagesTb 
+	JOIN Profiles AS sender ON sender.userId = MessagesTb.sender
+	JOIN Profiles AS receiver ON receiver.userId  = MessagesTb.receiver
